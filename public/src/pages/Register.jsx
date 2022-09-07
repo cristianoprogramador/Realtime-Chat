@@ -21,11 +21,16 @@ function Register() {
     pauseOnHover: true,
     draggable: true,
     theme: 'dark'
-  }
+  };
+  useEffect(() => {
+    if (localStorage.getItem('chat-app-user')) {
+      navigate('/')
+    }
+  }, [])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log('in validation', registerRoute)
       const { password, username, email } = values;
       const { data } = await axios.post(registerRoute, {
         username,
@@ -98,7 +103,7 @@ function Register() {
             onChange={e => handleChange(e)}
           />
           <button type='submit'>Create User</button>
-          <span>Already have a account ?<Link to="/login" >Login</Link>
+          <span>Already have a account ?<Link to="/login" > Login</Link>
           </span>
         </form>
       </FormContainer>
